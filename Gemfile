@@ -9,6 +9,8 @@ gem 'spring', :group => :development
 
 gem "devise"
 
+gem 'mysql2', '~> 0.3.18'
+
 #For API
 gem 'active_model_serializers'
 
@@ -22,7 +24,7 @@ group :doc do
 end
 
 group :test do
-  gem "rspec-rails", "~> 2.14"
+  gem "rspec-rails"
   gem "factory_girl_rails"
   gem 'ffaker'
   gem "shoulda-matchers"

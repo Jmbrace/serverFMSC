@@ -57,6 +57,8 @@ end
     context "when is successfully updated" do
       before(:each) do
         @user = FactoryGirl.create :user
+        api_authorization_header @user.auth_token 
+
         patch :update, { id: @user.id,
                          user: { email: "newmail@example.com" } }, format: :json
       end
@@ -82,10 +84,22 @@ end
 
       it "renders the json errors on whye the user could not be created" do
         user_response = JSON.parse(response.body, symbolize_names: true)
+        puts user_response
         expect(user_response[:errors][:email]).to include "is invalid"
       end
 
     end
+  end
+
+  describe "DELETE #destroy" do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      api_authorization_header @user.auth_token #we added this line
+      delete :destroy, id: @user.auth_token
+    end
+
+    it { should respond_with 204 }
+
   end
 end
 
