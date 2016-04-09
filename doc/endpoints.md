@@ -6,7 +6,7 @@ API document for the rails server for our FMSC app.
 ## User endpoints
 
 ### Create User
-	http://servername/user
+	http://servername/users
 
 	Json data to provide:
 
