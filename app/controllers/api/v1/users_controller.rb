@@ -9,12 +9,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    puts user_params
     user = User.new(user_params)
     if user.save
       render json: user, status: 201, location: [:api, user]
     else
-      render json: { errors: user.errors }, status: 422
+      render json: { errors: user.errors }, status: 422, message: "Something went wrong"
     end
   end
 

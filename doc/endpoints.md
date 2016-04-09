@@ -1,12 +1,13 @@
-<snippet>
-  <content><![CDATA[
-# ${1:Project Name}
+
+# FMSC Server
 API document for the rails server for our FMSC app.
 
 ## User endpoints
 
 ### Create User
-	http://servername/users
+    POST to 
+
+	http://servername/api/users
 
 	Json data to provide:
 
@@ -35,6 +36,3 @@ API document for the rails server for our FMSC app.
 ### Login
 	http://servername/sessions
 
-></content>
-  <tabTrigger>readme</tabTrigger>
-</snippet>
