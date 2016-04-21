@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.3'
 
 gem 'rails-api'
@@ -12,6 +11,15 @@ gem 'rack-cors', :require => 'rack/cors'
 gem "devise"
 
 gem 'mysql2', '~> 0.3.18'
+
+gem 'tzinfo-data'
+
+#for image processing 
+gem 'chunky_png'
+
+gem 'paperclip'
+
+gem 'aws-sdk'
 
 #For API
 gem 'active_model_serializers'
