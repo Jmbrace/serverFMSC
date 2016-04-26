@@ -26,12 +26,18 @@ class Api::PurchasesController < ApplicationController
 
   def update
 	# update the actual images
-	pixel = Pixel.new()
-	pixel.x = 10
-	pixel.y = 10
 	listOfPixelsIDs = Array.new
+
+	pixel = Pixel.new()
+	pixel.x = 1
+	pixel.y = 1
 	listOfPixelsIDs << pixel 
 	
+	pixel2 = Pixel.new()
+	pixel2.x = 2
+	pixel2.y = 1
+	listOfPixelsIDs << pixel2
+
 	updateImage(listOfPixelsIDs)
 	render json: { message: "yo" }
   end
@@ -46,44 +52,40 @@ class Api::PurchasesController < ApplicationController
     end
 
 	def updateImage(listOfPixelsIDs)
-		require "rmagick"
-
-		current = Magick::Image.read("app/assets/images/current.png").first
-		master = Magick::Image.read("app/assets/images/master.png").first
-
-		for pixel in listOfPixelsIDs
-			current.pixel_color(pixel.x,pixel.y, master.pixel_color(pixel.x,pixel.y))
-		end 
-
-		current.write("app/assets/images/current.png")
-
-
-		# update aws S3 files 
 		require 'aws-sdk'
-
-		# s3 = Aws::S3::Resource.new(region:'us-west-2')
-		# obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: 'current.png')
-		# obj.upload_file("app/assets/images/current.png")
+		require "rmagick"
 
 		s3 = Aws::S3::Resource.new(:access_key_id => ENV['AWS_ACCESS_KEY_ID'],
                           :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
                           :region => 'us-west-2')
-		s3.bucket(ENV['S3_BUCKET_NAME']).object('test.png').upload_file('app/assets/images/current.png')
 
+		bucket = s3.bucket(ENV['S3_BUCKET_NAME'])
 
+		# cache the current image to the server to process it 
+		local_current  = "app/assets/images/tmp/current.png"
+		s3current = bucket.object('current.png')
+	    File.open(local_current, 'wb') do |file|
+			photo.read do |chunk|
+	        	file.write(chunk)
+      		end        
+	    end
 
+	    # copy the pixels 
+		current = Magick::Image.read("app/assets/images/tmp/current.png").first
+		master = Magick::Image.read("app/assets/images/master.png").first
 
-		# currentImage = ChunkyPNG::Image.from_file('app/assets/images/current.png')
-		# masterImage = ChunkyPNG::Image.from_file('app/assets/images/master.png')
+		for pixel in listOfPixelsIDs
+			(1..4).each do |i|
+				(1..3).each do |j|
+				 	x = 4 * (pixel.x - 1) + i
+				 	y = 3 * (pixel.y - 1) + j 
+				 	current.pixel_color(x, y, master.pixel_color(x, y))
+				end
+			end
+		end 
 
-		# # for id in listOfPixelsIDs
-		# # 	pixel = Pixel.find(id)
-		# for pixel in listOfPixelsIDs
-		# 	currentImage[pixel.x,pixel.y] = masterImage[pixel.x,pixel.y]
-
-		# 	puts "is this happenning??\n"
-		# end  
-
-		# png.save("current.png", :interlace => true)
+		# write back to the aws bucket 
+		current.write("app/assets/images/tmp/current.png")
+		bucket.object('test.png').upload_file('app/assets/images/tmp/current.png')
 	end 
 end
