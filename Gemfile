@@ -24,6 +24,7 @@ gem 'paperclip'
 gem 'le'
 
 gem 'aws-sdk'
+gem 'rmagick'
 
 #For API
 gem 'active_model_serializers'
