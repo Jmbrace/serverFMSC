@@ -29,6 +29,7 @@ class Api::PurchasesController < ApplicationController
 	pixel = Pixel.new()
 	pixel.x = 10
 	pixel.y = 10
+	listOfPixelsIDs = Array.new
 	listOfPixelsIDs << pixel 
 	
 	updateImage(listOfPixelsIDs)
