@@ -61,9 +61,20 @@ class Api::PurchasesController < ApplicationController
 		# update aws S3 files 
 		require 'aws-sdk'
 
-		s3 = Aws::S3::Resource.new(region:'us-west-2')
-		obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: 'current.png')
-		obj.upload_file("app/assets/images/current.png")
+		# s3 = Aws::S3::Resource.new(region:'us-west-2')
+		# obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: 'current.png')
+		# obj.upload_file("app/assets/images/current.png")
+
+	    service = AWS::S3.new(:access_key_id => ENV['AWS_ACCESS_KEY_ID'], 
+	    	:secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
+	    bucket_name = ENV['S3_BUCKET_NAME']
+	    bucket = service.buckets[bucket_name]
+	    bucket.acl = :public_read
+	    key = "current.png" 
+	    s3_file = service.buckets[bucket_name].objects[key].write(:file => "app/assets/images/current.png")
+
+
+
 
 
 		# currentImage = ChunkyPNG::Image.from_file('app/assets/images/current.png')
