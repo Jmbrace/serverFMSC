@@ -62,7 +62,7 @@ class Api::PurchasesController < ApplicationController
 		require 'aws-sdk'
 
 		s3 = Aws::S3::Resource.new(region:'us-west-2')
-		obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: ENV['AWS_SECRET_ACCESS_KEY'])
+		obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: 'current.png')
 		obj.upload_file("app/assets/images/current.png")
 
 
