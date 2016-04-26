@@ -46,18 +46,18 @@ class Api::PurchasesController < ApplicationController
     end
 
 	def updateImage(listOfPixelsIDs)
-		currentImage = ChunkyPNG::Image.from_file('app/assets/images/current.png')
-		masterImage = ChunkyPNG::Image.from_file('app/assets/images/master.png')
+		# currentImage = ChunkyPNG::Image.from_file('app/assets/images/current.png')
+		# masterImage = ChunkyPNG::Image.from_file('app/assets/images/master.png')
 
-		# for id in listOfPixelsIDs
-		# 	pixel = Pixel.find(id)
-		for pixel in listOfPixelsIDs
-			currentImage[pixel.x,pixel.y] = masterImage[pixel.x,pixel.y]
+		# # for id in listOfPixelsIDs
+		# # 	pixel = Pixel.find(id)
+		# for pixel in listOfPixelsIDs
+		# 	currentImage[pixel.x,pixel.y] = masterImage[pixel.x,pixel.y]
 
-			puts "is this happenning??\n"
-		end  
+		# 	puts "is this happenning??\n"
+		# end  
 
-		png.save("current.png", :interlace => true)
+		# png.save("current.png", :interlace => true)
 
 		# update aws S3 files 
 		# require 'aws-sdk'
