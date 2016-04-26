@@ -46,8 +46,8 @@ class Api::PurchasesController < ApplicationController
     end
 
 	def updateImage(listOfPixelsIDs)
-		currentImage = ChunkyPNG::Image.from_file('app/assets/images/currentImage.png')
-		masterImage = ChunkyPNG::Image.from_file('app/assets/images/masterImage.png')
+		currentImage = ChunkyPNG::Image.from_file('app/assets/images/current.png')
+		masterImage = ChunkyPNG::Image.from_file('app/assets/images/master.png')
 
 		for id in listOfPixelsIDs
 			pixel = Pixel.find(id)
