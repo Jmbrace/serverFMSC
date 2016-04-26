@@ -24,8 +24,8 @@ class Api::PurchasesController < ApplicationController
 
   def update
 	uploader = AvatarUploader.new
-	image = uploader.retrieve_from_store!('master.png')
-	puts image
+	# image = uploader.retrieve_from_store!('master.png')
+	# puts image
   end
 
   def destroy
