@@ -48,8 +48,13 @@ class Api::PurchasesController < ApplicationController
 	def updateImage(listOfPixelsIDs)
 		require "rmagick"
 
-		source = Magick::Image.read("app/assets/images/current.png").first
+		current = Magick::Image.read("app/assets/images/current.png").first
+		master = Magick::Image.read("app/assets/images/master.png").first
 
+		for pixel in listOfPixelsIDs
+			current.pixel_color(pixel.x,pixel.y, master.pixel_color(pixel.x,pixel.y))
+		end 
+		
 		# currentImage = ChunkyPNG::Image.from_file('app/assets/images/current.png')
 		# masterImage = ChunkyPNG::Image.from_file('app/assets/images/master.png')
 
