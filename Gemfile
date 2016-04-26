@@ -17,9 +17,13 @@ gem 'tzinfo-data'
 #for image processing 
 gem 'chunky_png'
 
-# for s3 image handling 
+# for s3 image handling, jk
 gem 'paperclip'
-gem 'aws-sdk'
+# gem 'aws-sdk'
+
+# For image uploading, seriously
+gem 'carrierwave'
+gem 'fog-aws'
 
 #For API
 gem 'active_model_serializers'
