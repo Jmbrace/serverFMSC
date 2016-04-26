@@ -57,13 +57,13 @@ class Api::PurchasesController < ApplicationController
 			puts "is this happenning??\n"
 		end  
 
-		png.save("currentImage.png", :interlace => true)
+		png.save("current.png", :interlace => true)
 
 		# update aws S3 files 
-		require 'aws-sdk'
+		# require 'aws-sdk'
 
-		s3 = Aws::S3::Resource.new(region:'us-west-2')
-		obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: ENV['AWS_SECRET_ACCESS_KEY'])
-		obj.upload_file('app/assets/images/current.png')
+		# s3 = Aws::S3::Resource.new(region:'us-west-2')
+		# obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: ENV['AWS_SECRET_ACCESS_KEY'])
+		# obj.upload_file('app/assets/images/current.png')
 	end 
 end
