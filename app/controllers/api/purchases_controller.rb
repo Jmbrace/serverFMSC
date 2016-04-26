@@ -33,7 +33,7 @@ class Api::PurchasesController < ApplicationController
 	listOfPixelsIDs << pixel 
 	
 	updateImage(listOfPixelsIDs)
-
+	render json: { message: "yo" }
   end
 
   def destroy
