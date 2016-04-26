@@ -25,7 +25,14 @@ class Api::PurchasesController < ApplicationController
   end
 
   def update
+	# update the actual images
+	pixel = new Pixel
+	pixel.x = 10
+	pixel.y = 10
+	listOfPixelsIDs << pixel 
 	
+	updateImage(listOfPixelsIDs)
+
   end
 
   def destroy
@@ -37,16 +44,23 @@ class Api::PurchasesController < ApplicationController
       params.require(:purchase).permit(:message, :listOfPixelsIDs, :location)
     end
 
-		def updateImage(listOfPixelsIDs)
-			currentImage = ChunkyPNG::Image.from_file('currentImage.png')
-			masterImage = ChunkyPNG::Image.from_file('masterImage.png')
+	def updateImage(listOfPixelsIDs)
+		currentImage = ChunkyPNG::Image.from_file('app/assets/images/currentImage.png')
+		masterImage = ChunkyPNG::Image.from_file('app/assets/images/masterImage.png')
 
-			for id in listOfPixelsIDs
-				pixel = Pixel.find(id)
-				currentImage[pixel.x,pixel.y] = masterImage[pixel.x,pixel.y]
-			end  
+		for id in listOfPixelsIDs
+			pixel = Pixel.find(id)
+			currentImage[pixel.x,pixel.y] = masterImage[pixel.x,pixel.y]
+		end  
 
-			png.save("currentImage.png", :interlace => true)
-		end 
+		png.save("currentImage.png", :interlace => true)
+
+		# update aws S3 files 
+		require 'aws-sdk'
+
+		s3 = Aws::S3::Resource.new(region:'us-west-2')
+		obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: ENV['AWS_SECRET_ACCESS_KEY'])
+		obj.upload_file('app/assets/images/currentImage.png')
+	end 
 
 end
