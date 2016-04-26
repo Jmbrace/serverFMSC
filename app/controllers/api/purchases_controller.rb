@@ -83,6 +83,6 @@ class Api::PurchasesController < ApplicationController
 
 		# write back to the aws bucket 
 		current.write("app/assets/images/current.png")
-		bucket.object('test.png').upload_file('app/assets/images/current.png')
+		bucket.object('current.png').upload_file('app/assets/images/current.png')
 	end 
 end
