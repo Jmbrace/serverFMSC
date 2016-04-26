@@ -21,9 +21,7 @@ gem 'chunky_png'
 gem 'paperclip'
 # gem 'aws-sdk'
 
-# For image uploading, seriously
-gem 'fog', require: 'fog/aws'
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'le'
 
 #For API
 gem 'active_model_serializers'

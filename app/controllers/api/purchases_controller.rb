@@ -1,3 +1,5 @@
+
+
 class Api::PurchasesController < ApplicationController
   def show
   end
@@ -23,9 +25,7 @@ class Api::PurchasesController < ApplicationController
   end
 
   def update
-	# uploader = AvatarUploader.new
-	# image = uploader.retrieve_from_store!('master.png')
-	# puts image
+	
   end
 
   def destroy
