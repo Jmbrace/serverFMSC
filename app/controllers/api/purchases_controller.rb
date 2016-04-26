@@ -26,7 +26,7 @@ class Api::PurchasesController < ApplicationController
 
   def update
 	# update the actual images
-	pixel = new Pixel
+	pixel = Pixel.new()
 	pixel.x = 10
 	pixel.y = 10
 	listOfPixelsIDs << pixel 

@@ -23,6 +23,8 @@ gem 'paperclip'
 
 gem 'le'
 
+gem 'aws-sdk'
+
 #For API
 gem 'active_model_serializers'
 
