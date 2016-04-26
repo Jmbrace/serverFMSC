@@ -17,8 +17,8 @@ gem 'tzinfo-data'
 #for image processing 
 gem 'chunky_png'
 
+# for s3 image handling 
 gem 'paperclip'
-
 gem 'aws-sdk'
 
 #For API
