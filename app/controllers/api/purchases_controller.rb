@@ -49,8 +49,9 @@ class Api::PurchasesController < ApplicationController
 		currentImage = ChunkyPNG::Image.from_file('app/assets/images/current.png')
 		masterImage = ChunkyPNG::Image.from_file('app/assets/images/master.png')
 
-		for id in listOfPixelsIDs
-			pixel = Pixel.find(id)
+		# for id in listOfPixelsIDs
+		# 	pixel = Pixel.find(id)
+		for pixel in listOfPixelsIDs
 			currentImage[pixel.x,pixel.y] = masterImage[pixel.x,pixel.y]
 
 			puts "is this happenning??\n"
@@ -58,11 +59,11 @@ class Api::PurchasesController < ApplicationController
 
 		png.save("currentImage.png", :interlace => true)
 
-	# 	# update aws S3 files 
-	# 	require 'aws-sdk'
+		# update aws S3 files 
+		require 'aws-sdk'
 
-	# 	s3 = Aws::S3::Resource.new(region:'us-west-2')
-	# 	obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: ENV['AWS_SECRET_ACCESS_KEY'])
-	# 	obj.upload_file('app/assets/images/current.png')
+		s3 = Aws::S3::Resource.new(region:'us-west-2')
+		obj = s3.bucket(ENV['S3_BUCKET_NAME']).object(key: ENV['AWS_SECRET_ACCESS_KEY'])
+		obj.upload_file('app/assets/images/current.png')
 	end 
 end
