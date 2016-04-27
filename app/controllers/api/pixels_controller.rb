@@ -1,4 +1,7 @@
 class Api::PixelsController < ApplicationController
+  
+
+
   def show
 
 
@@ -15,8 +18,7 @@ class Api::PixelsController < ApplicationController
 	  			pixel.save
 	  		end
 	  	end
-		  end
-		  ActiveRecord::Base.connection.close
+		ActiveRecord::Base.connection.close
 	end
 	  # if batch.size >= batch_size
 	  #   Product.import batch
