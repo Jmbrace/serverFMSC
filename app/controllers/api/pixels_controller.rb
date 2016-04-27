@@ -10,5 +10,6 @@ class Api::PixelsController < ApplicationController
   	# end
 
   	Pixel.delete_all
+  	render json: { :message => "We have landed" }
   end
 end
