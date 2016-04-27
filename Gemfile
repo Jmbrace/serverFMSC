@@ -14,6 +14,8 @@ gem 'mysql2', '~> 0.3.18'
 
 gem 'tzinfo-data'
 
+gem 'activerecord-import'
+
 #for image processing 
 gem 'chunky_png'
 
