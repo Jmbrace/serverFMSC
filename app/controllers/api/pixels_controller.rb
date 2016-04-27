@@ -26,6 +26,9 @@ class Api::PixelsController < ApplicationController
 	  # end
 	# Product.import batch
 	  	 # Pixel.delete_all
-	  	render json: { :message => Pixel.count }
+	  	render json: {
+	  		:amount => Pixel.count 
+  			:one => Pixel.find(0)
+	  	}
 	  end
 end
