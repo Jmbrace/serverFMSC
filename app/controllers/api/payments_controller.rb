@@ -1,6 +1,6 @@
 class Api::PaymentsController < ApplicationController
-	before_action :authenticate_with_token!
-	respond_to :json
+	# before_action :authenticate_with_token!
+	# respond_to :json
 
   require "rubygems"
   require "braintree"
