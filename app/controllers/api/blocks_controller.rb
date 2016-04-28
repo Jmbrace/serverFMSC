@@ -1,7 +1,7 @@
 class Api::BlocksController < ApplicationController
   
   def show
-    render json: Block.where(status: "").first(3)
+    render json: Block.where(status: "purchased")
   end
 end
 
