@@ -1,7 +1,4 @@
 class Api::PaymentsController < ApplicationController
-	# before_action :authenticate_with_token!
-	# respond_to :json
-
   require "rubygems"
   require "braintree"
 
@@ -31,15 +28,15 @@ class Api::PaymentsController < ApplicationController
   # 		listOfBlocks.push(block)
 		# end
 
-    # counter = 0
-    # while counter < numOfBlocks
-    #   block = Block.where(status: "")
-    #   block.status = "purchased"
-    #   block.message = "message"
-    #   # block.save
-    #   listOfBlocks.push(block)
-    #   counter = counter + 1
-    # end
+    counter = 0
+    while counter < numOfBlocks
+      block = Block.where(status: "")
+      block.status = "purchased"
+      block.message = "message"
+      # block.save
+      listOfBlocks.push(block)
+      counter = counter + 1
+    end
     result = Braintree::Transaction.sale(
     :amount => params[:amount], #"10.00", #could be any other arbitrary amount captured in params[:amount] if they weren't all $10.
     :payment_method_nonce => nonce,
