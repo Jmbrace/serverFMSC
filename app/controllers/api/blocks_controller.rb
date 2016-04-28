@@ -1,12 +1,6 @@
 class Api::BlocksController < ApplicationController
   
   def show
-    Block.find_each do |block|
-      block.status = ""
-      block.message = ""
-      block.save
-    end
-
     render json: Block.where(status: "purchased")
   end
 end

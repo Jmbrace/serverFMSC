@@ -15,5 +15,12 @@
   	# for blockX in 121..160
   	# 	Block.where(leftXCrnr: (blockX-1) * 16).delete_all
   	# end
+    
+    Block.find_each do |block|
+      block.status = ""
+      block.message = ""
+      block.save
+    end
 
-  puts "Created #{Block.count} Blocks"
+
+  	puts "Created #{Block.where(status: "purchased")} Blocks"
