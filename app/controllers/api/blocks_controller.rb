@@ -1,6 +1,9 @@
 class Api::BlocksController < ApplicationController
   
   def show
+    render json: Block.where(status: "").first(3)
+  end
+end
 
   # Thread.new do
   	# for blockX in 1..250 
@@ -35,7 +38,4 @@ class Api::BlocksController < ApplicationController
   	# 	  block.status = ""
   	# 	end
   	# end
-  	render json: {message: Block.count } 
-  end
-
-end
+  	#render json: {message: Block.count } 
