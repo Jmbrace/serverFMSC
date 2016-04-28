@@ -1,4 +1,6 @@
 class Api::PaymentsController < ApplicationController
+	before_action :authenticate_with_token!, only: [:update, :destroy]
+	
   require "rubygems"
   require "braintree"
 
