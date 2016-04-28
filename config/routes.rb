@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :users, :only => [:show, :create, :update, :destroy]
       resources :sessions, :only => [:create, :destroy]
       resources :purchases, :only => [:show, :create, :update, :destroy]
-      resources :pixels, :only => [:show]
+      resources :blocks, :only => [:show],
+      resources :payments, :only => [:create]
   end
 end
