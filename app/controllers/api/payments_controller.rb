@@ -24,6 +24,7 @@ class Api::PaymentsController < ApplicationController
     while counter < numOfBlocks
       block = Block.where(status: "")
       block.status = "purchased"
+      block.message = message
       block.save
       listOfBlocks.push(block)
       counter = counter + 1
