@@ -1,5 +1,5 @@
 class Api::PaymentsController < ApplicationController
-	before_action :authenticate_with_token!, only: [:update, :destroy]
+	before_action :authenticate_with_token!
 	respond_to :json
 
   require "rubygems"
