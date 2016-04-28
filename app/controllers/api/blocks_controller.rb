@@ -7,6 +7,7 @@ class Api::BlocksController < ApplicationController
   		  block.leftXCrnr = (blockX-1) * 16
   		  block.leftYCrnr = (blockY-1) * 15
   		  block.status = ""
+  		  block.save
   		end
   	end
 
