@@ -24,12 +24,12 @@ class Api::PaymentsController < ApplicationController
     numOfBlocks = numOfMeals/20
     listOfBlocks = []
 
-		Block.where(status: "").limit(numOfBlocks).find_each do |block|
-  		block.status = "purchased"
-  		block.message = message
-  		block.save
-  		listOfBlocks.push(block)
-		end
+		# Block.where(status: "").limit(numOfBlocks).find_each do |block|
+  # 		block.status = "purchased"
+  # 		block.message = message
+  # 		block.save
+  # 		listOfBlocks.push(block)
+		# end
 
     # counter = 0
     # while counter < numOfBlocks
