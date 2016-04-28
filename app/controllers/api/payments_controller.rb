@@ -94,13 +94,7 @@ class Api::PaymentsController < ApplicationController
 
     # write back to the aws bucket 
     current.write("app/assets/images/current.png")
-    bucket.object('current.png').put({
-    		acl: "public-read",
-  		  grant_full_control: "GrantFullControl",
-  			grant_read: "GrantRead",
-  			grant_read_acp: "GrantReadACP",
-  			grant_write_acp: "GrantWriteACP"
-    	}).upload_file('app/assets/images/current.png')
+    bucket.object('current.png').upload_file('app/assets/images/current.png')
   
     # update permissions of the object such that everyone can view it   
   end 
