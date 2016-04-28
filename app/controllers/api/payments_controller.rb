@@ -22,20 +22,20 @@ class Api::PaymentsController < ApplicationController
     listOfBlocks = Array.new
 
 		Block.where(status: "").first(numOfBlocks).each do |block|
-  		# block.status = "purchased"
-  		# block.message = message
-  		# block.state = state
-  		# block.save
-  		# listOfBlocks << block
+  		block.status = "purchased"
+  		block.message = message
+  		block.state = state
+  		block.save
+  		listOfBlocks << block
 		end
 
-  #   result = Braintree::Transaction.sale(
-  #   :amount => params[:amount], #"10.00", #could be any other arbitrary amount captured in params[:amount] if they weren't all $10.
-  #   :payment_method_nonce => nonce,
-  #   :options => {
-  #     :submit_for_settlement => true
-  #     }
-  #   )
+    result = Braintree::Transaction.sale(
+    :amount => params[:amount], #"10.00", #could be any other arbitrary amount captured in params[:amount] if they weren't all $10.
+    :payment_method_nonce => nonce,
+    :options => {
+      :submit_for_settlement => true
+      }
+    )
 
     #updateImage(listOfBlocks)
     render json: { message: "We did it" }
