@@ -21,13 +21,13 @@ class Api::PaymentsController < ApplicationController
     numOfBlocks = numOfMeals / 20
     listOfBlocks = Array.new
 
-		# Block.where(status: "").first(numOfBlocks).find_each do |block|
-  # 		block.status = "purchased"
-  # 		block.message = message
-  # 		block.state = state
-  # 		block.save
-  # 		listOfBlocks << block
-		# end
+		Block.where(status: "").first(numOfBlocks).find_each do |block|
+  		# block.status = "purchased"
+  		# block.message = message
+  		# block.state = state
+  		# block.save
+  		# listOfBlocks << block
+		end
 
   #   result = Braintree::Transaction.sale(
   #   :amount => params[:amount], #"10.00", #could be any other arbitrary amount captured in params[:amount] if they weren't all $10.
