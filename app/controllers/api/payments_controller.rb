@@ -23,9 +23,9 @@ class Api::PaymentsController < ApplicationController
     counter = 0
     while counter < numOfBlocks
       block = Block.where(status: "")
-      block.status = "purchased"
-      block.message = message
-      block.save
+      # block.status = "purchased"
+      # block.message = message
+      # block.save
       listOfBlocks.push(block)
       counter = counter + 1
     end
@@ -36,7 +36,7 @@ class Api::PaymentsController < ApplicationController
       :submit_for_settlement => true
       }
     )
-    updateImage(listOfBlocks)
+    # updateImage(listOfBlocks)
     render json: { message: "We did it" }
   end
 
