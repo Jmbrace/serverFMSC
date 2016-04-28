@@ -1,7 +1,14 @@
 class Api::BlocksController < ApplicationController
   
   def show
-    render json: Block.first(10) #Block.where(status: "").first(10)
+    Block.find_each do |block|
+      block.status = ""
+      block.message = ""
+      block.save
+      listOfBlocks.push(block)
+    end
+
+    render json: Block.where(status: "purchased")
   end
 end
 

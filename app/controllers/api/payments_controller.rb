@@ -21,7 +21,7 @@ class Api::PaymentsController < ApplicationController
     numOfBlocks = numOfMeals/20
     listOfBlocks = []
 
-		Block.where(status: "").limit(numOfBlocks).find_each do |block|
+		Block.where(status: "").first(numOfBlocks).find_each do |block|
   		block.status = ""
   		block.message = ""
   		block.save
