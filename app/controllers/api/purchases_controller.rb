@@ -71,11 +71,12 @@ class Api::PurchasesController < ApplicationController
 		current = Magick::Image.read("app/assets/images/current.png").first
 		master = Magick::Image.read("app/assets/images/master.png").first
 
-		for pixel in listOfPixelsIDs
-			(1..4).each do |i|
-				(1..3).each do |j|
-				 	x = 4 * (pixel.x - 1) + i
-				 	y = 3 * (pixel.y - 1) + j 
+		for id in listOfPixelsIDs
+			(1..16).each do |i|
+				(1..15).each do |j|
+				 	pixel = Pixel.find(id)	
+				 	x = 16 * (pixel.x - 1) + i
+				 	y = 15 * (pixel.y - 1) + j 
 				 	current.pixel_color(x, y, master.pixel_color(x, y))
 				end
 			end
@@ -84,5 +85,7 @@ class Api::PurchasesController < ApplicationController
 		# write back to the aws bucket 
 		current.write("app/assets/images/current.png")
 		bucket.object('current.png').upload_file('app/assets/images/current.png')
+	
+		# update permissions of the object such that everyone can view it 	
 	end 
 end
