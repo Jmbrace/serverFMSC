@@ -17,6 +17,17 @@ class Api::PaymentsController < ApplicationController
     nonce = params[:payment_method_nonce]
     message = params[:message]
     numOfMeals = params[:numOfMeals]
+    state  = params[:state]
+    numOfBlocks = numOfMeals/20
+    listOfBlocks = []
+    counter = 0
+    while counter < numOfBlocks
+      block = Block.where(status: "")
+      block.status = "purchased"
+      block.save
+      listOfBlocks.push(block)
+      counter = counter + 1
+    end
     result = Braintree::Transaction.sale(
     :amount => params[:amount], #"10.00", #could be any other arbitrary amount captured in params[:amount] if they weren't all $10.
     :payment_method_nonce => nonce,
@@ -24,6 +35,7 @@ class Api::PaymentsController < ApplicationController
       :submit_for_settlement => true
       }
     )
+    updateImage(listOfBlocks)
     render json: { message: "We did it" }
   end
 
@@ -47,4 +59,42 @@ class Api::PaymentsController < ApplicationController
  #  	  render json: { error: "Card Declined" }
 	# end
   #end
+
+    def updateImage(listOfBlocks)
+    require 'aws-sdk'
+    require "rmagick"
+    require "open-uri"
+
+    s3 = Aws::S3::Resource.new(:access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+                          :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+                          :region => 'us-west-2')
+
+    bucket = s3.bucket(ENV['S3_BUCKET_NAME'])
+
+    # cache the current image to the server to process it 
+    File.open('app/assets/images/current.png', 'wb') do |fo|
+      fo.write open("https://s3-us-west-2.amazonaws.com/fmsc4262016/current.png").read 
+    end
+
+      # copy the pixels 
+    current = Magick::Image.read("app/assets/images/current.png").first
+    master = Magick::Image.read("app/assets/images/master.png").first
+
+    for id in listOfBlocks
+      (0..15).each do |i|
+        (0..14).each do |j|
+          block = Block.find(id)  
+          x = block.leftXCrnr + i
+          y = block.leftYCrnr + j 
+          current.pixel_color(x, y, master.pixel_color(x, y))
+        end
+      end
+    end 
+
+    # write back to the aws bucket 
+    current.write("app/assets/images/current.png")
+    bucket.object('current.png').upload_file('app/assets/images/current.png')
+  
+    # update permissions of the object such that everyone can view it   
+  end 
 end
