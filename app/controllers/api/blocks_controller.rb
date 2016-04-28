@@ -35,7 +35,6 @@ class Api::BlocksController < ApplicationController
   	# 	  block.status = ""
   	# 	end
   	# end
-  	# Block.delete_all
   	render json: {message: Block.count } 
   end
 
