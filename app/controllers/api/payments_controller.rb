@@ -98,4 +98,8 @@ class Api::PaymentsController < ApplicationController
   
     # update permissions of the object such that everyone can view it   
   end 
+
+  def pay_params
+      params.require(:payment_method_nonce).permit(:message, :numOfMeals, :state)
+  end
 end
