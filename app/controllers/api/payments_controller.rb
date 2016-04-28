@@ -23,9 +23,9 @@ class Api::PaymentsController < ApplicationController
     counter = 0
     while counter < numOfBlocks
       block = Block.where(status: "")
-      # block.status = "purchased"
-      # block.message = message
-      # block.save
+      block.status = "purchased"
+      block.message = message
+      block.save
       listOfBlocks.push(block)
       counter = counter + 1
     end
@@ -81,10 +81,9 @@ class Api::PaymentsController < ApplicationController
     current = Magick::Image.read("app/assets/images/current.png").first
     master = Magick::Image.read("app/assets/images/master.png").first
 
-    for id in listOfBlocks
+    for block in listOfBlocks
       (0..15).each do |i|
         (0..14).each do |j|
-          block = Block.find(id)  
           x = block.leftXCrnr + i
           y = block.leftYCrnr + j 
           current.pixel_color(x, y, master.pixel_color(x, y))
