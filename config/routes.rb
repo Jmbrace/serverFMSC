@@ -8,5 +8,6 @@ Rails.application.routes.draw do
       resources :sessions, :only => [:create, :destroy]
       resources :purchases, :only => [:show, :create, :update, :destroy]
       resources :blocks, :only => [:show]
+      resources :payments, :only => [:show, :create]
     end
 end
