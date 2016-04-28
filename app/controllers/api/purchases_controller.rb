@@ -25,20 +25,26 @@ class Api::PurchasesController < ApplicationController
   end
 
   def update
-	# update the actual images
-	listOfPixelsIDs = Array.new
 
-	pixel = Pixel.new()
-	pixel.x = 1
-	pixel.y = 1
-	listOfPixelsIDs << pixel 
+
+	# pixel = Pixel.new()
+	# pixel.x = 1
+	# pixel.y = 1
+	# listOfPixelsIDs << pixel 
 	
-	pixel2 = Pixel.new()
-	pixel2.x = 2
-	pixel2.y = 1
-	listOfPixelsIDs << pixel2
+	# pixel2 = Pixel.new()
+	# pixel2.x = 2
+	# pixel2.y = 1
+	# listOfPixelsIDs << pixel2
 
-	updateImage(listOfPixelsIDs)
+	# update the actual images
+	listOfBlockIDs = Array.new
+
+	Thread.new do
+		updateImage(listOfBlockIDs)
+		ActiveRecord::Base.connection.close
+	end
+
 	render json: { message: "yo" }
   end
 
@@ -51,7 +57,7 @@ class Api::PurchasesController < ApplicationController
       params.require(:purchase).permit(:message, :listOfPixelsIDs, :location)
     end
 
-	def updateImage(listOfPixelsIDs)
+	def updateImage(listOfBlockIDs)
 		require 'aws-sdk'
 		require "rmagick"
 		require "open-uri"
@@ -71,12 +77,12 @@ class Api::PurchasesController < ApplicationController
 		current = Magick::Image.read("app/assets/images/current.png").first
 		master = Magick::Image.read("app/assets/images/master.png").first
 
-		for id in listOfPixelsIDs
+		for id in listOfBlockIDs
 			(1..16).each do |i|
 				(1..15).each do |j|
-				 	pixel = Pixel.find(id)	
-				 	x = 16 * (pixel.x - 1) + i
-				 	y = 15 * (pixel.y - 1) + j 
+				 	block = Block.find(id)	
+				 	x = block.x + i
+				 	y = block.y + j 
 				 	current.pixel_color(x, y, master.pixel_color(x, y))
 				end
 			end

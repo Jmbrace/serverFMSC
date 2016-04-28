@@ -28,6 +28,10 @@ gem 'le'
 gem 'aws-sdk'
 gem 'rmagick'
 
+# for moneyz
+gem 'braintree'
+gem 'dotenv-rails'
+
 #For API
 gem 'active_model_serializers'
 
