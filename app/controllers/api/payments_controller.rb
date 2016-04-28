@@ -1,4 +1,4 @@
-class PaymentsController < ApplicationController
+class Api::PaymentsController < ApplicationController
 
   def show
 
