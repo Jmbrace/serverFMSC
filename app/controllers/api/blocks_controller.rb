@@ -3,15 +3,15 @@ class Api::BlocksController < ApplicationController
   def show
 
   # Thread.new do
-  	for blockX in 1..250 
-  		for blockY in 1..50
-  		  block = Block.new()
-  		  block.leftXCrnr = (blockX-1) * 16
-  		  block.leftYCrnr = (blockY-1) * 15
-  		  block.status = ""
-  		  block.save
-  		end
-  	end
+  	# for blockX in 1..250 
+  	# 	for blockY in 1..50
+  	# 	  block = Block.new()
+  	# 	  block.leftXCrnr = (blockX-1) * 16
+  	# 	  block.leftYCrnr = (blockY-1) * 15
+  	# 	  block.status = ""
+  	# 	  block.save
+  	# 	end
+  	# end
   # 	ActiveRecord::Base.connection.close
   # end
 
