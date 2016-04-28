@@ -22,8 +22,9 @@ class Api::PaymentsController < ApplicationController
     listOfBlocks = []
 
 		Block.where(status: "").first(numOfBlocks).find_each do |block|
-  		block.status = ""
-  		block.message = ""
+  		block.status = "purchased"
+  		block.message = message
+  		block.state = state
   		block.save
   		listOfBlocks.push(block)
 		end
