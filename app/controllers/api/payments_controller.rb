@@ -37,7 +37,7 @@ class Api::PaymentsController < ApplicationController
       }
     )
 
-    #updateImage(listOfBlocks)
+    updateImage(listOfBlocks)
     render json: { message: "We did it" }
   end
 
