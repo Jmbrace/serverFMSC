@@ -45,7 +45,7 @@ class Api::PaymentsController < ApplicationController
       :submit_for_settlement => true
       }
     )
-    updateImage(listOfBlocks)
+    #updateImage(listOfBlocks)
     render json: { message: "We did it" }
   end
 
