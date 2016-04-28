@@ -5,7 +5,6 @@ class Api::BlocksController < ApplicationController
       block.status = ""
       block.message = ""
       block.save
-      listOfBlocks.push(block)
     end
 
     render json: Block.where(status: "purchased")
